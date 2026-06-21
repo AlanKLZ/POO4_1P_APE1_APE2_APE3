@@ -26,6 +26,9 @@ abstract class Usuario{
     public String getcontraseña(){
         return contraseña;
     }
+    public String getcorreo(){
+        return correo;
+    }
     public RolUsuario getrolUsuario(){
         return rol;
     }
@@ -36,6 +39,41 @@ abstract class Usuario{
     public void setnombres(String nombres){
         this.nombres = nombres;
     }
+    public void setcedula(String cedula){
+        this.cedula = cedula;
+    }
+    public void setapellidos(String apellidos){
+        this.apellidos = apellidos;
+    }
+    public void setusuario(String usuario){
+        this.usuario = usuario;
+    }
+    public void setcontraseña(String contraseña){
+        this.contraseña = contraseña;
+    }
+    public void setcorreo(String correo){
+        this.correo = correo;
+    }
+    public void setRol(RolUsuario rol){
+        this.rol = rol;
+    }
 
+    public Usuario(String codigoUnico,String cedula,String nombres, String apellidos,String usuario,String contraseña,String correo,RolUsuario rol){
+        this.codigoUnico = codigoUnico;
+        this.cedula = cedula;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+        this.correo = correo;
+        this.rol = rol;
+    }
+    public static void consultarEntradas(){
+
+    }
+    @Override
+    public String toString(){
+        return "Usuario";
+    }
 }
 

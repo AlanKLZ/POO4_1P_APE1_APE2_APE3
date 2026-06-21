@@ -71,7 +71,7 @@ abstract class Usuario{
     public static void consultarEntradas(){
 
     }
-
+    @Override
     public String toString(){
         return "Usuario";
     }

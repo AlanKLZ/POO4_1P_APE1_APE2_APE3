@@ -1,4 +1,4 @@
 public enum TipoCompra {
     KIT,
-    PARTIDO
+    ENTRADA
 }

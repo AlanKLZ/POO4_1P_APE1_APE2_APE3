@@ -1,4 +1,4 @@
-public class Compras {
+public class Compra {
     public static int contador = 1;
     private String codigo;
     private String codigoReferencia;

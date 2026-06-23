@@ -4,22 +4,16 @@ public class Aficionado extends Usuario {
 
     private String celular;
     private String paisFavorito;
-}
-public Aficionado(){
-  super();
-}
 
-public Aficioando(
-  String codigoUnico,
-            String cedula,
-            String nombres,
-            String apellidos,
-            String usuario,
-            String contrasena,
-            String correo,
-            RolUsuario rol,
-            String celular,
-            String paisFavorito) {
+    public Aficionado(String codigoUnico,
+                      String cedula,
+                      String nombres,
+                      String apellidos,
+                      String usuario,
+                      String contraseña,
+                      String correo,
+                      String celular,
+                      String paisFavorito) {
 
         super(
                 codigoUnico,
@@ -27,15 +21,14 @@ public Aficioando(
                 nombres,
                 apellidos,
                 usuario,
-                contrasena,
+                contraseña,
                 correo,
-                rol
+                RolUsuario.AFICIONADO
         );
-        
+
         this.celular = celular;
         this.paisFavorito = paisFavorito;
-
-}
+    }
 
   
 

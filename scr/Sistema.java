@@ -11,15 +11,4 @@ public class Sistema {
         kitsCompra = new ArrayList<>();
         compras = new ArrayList<>();
     }
-
-    public boolean validadIniciarSesion(String usuario, String contraseña){
-        for (Usuario u : usuarios) {
-            if (u.getusuario().equals(usuario) && u.getcontraseña().equals(contraseña)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    
 }

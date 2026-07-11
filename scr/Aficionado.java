@@ -30,6 +30,24 @@ public class Aficionado extends Usuario {
         this.paisFavorito = paisFavorito;
     }
 
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+
+    public String getPaisFavorito() {
+        return paisFavorito;
+    }
+
+    public void setPaisFavorito(String paisFavorito) {
+        this.paisFavorito = paisFavorito;
+    }
+
+
+}
   
 
 

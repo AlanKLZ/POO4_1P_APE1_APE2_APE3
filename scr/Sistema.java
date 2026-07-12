@@ -26,7 +26,7 @@ public class Sistema {
     public void iniciarSesion(String usuario, String contraseña) {
         //System.out.println("===== INICIO DE SESIÓN ===== ");
         System.out.println("Usuario: " + usuario);
-        System.out.println("*".repeat(contraseña.length()));
+        System.out.println("Contraseña: "+"*".repeat(contraseña.length()));
         if (validadInicioSesion(usuario, contraseña)) {
             sesionIniciada = true;
             System.out.println("Usuario autenticado correctamente.");
@@ -73,7 +73,7 @@ public class Sistema {
         // ==========================
         // Leer usuarios.txt
         // ==========================
-        ArrayList<String> lineas = ManejoArchivos.LeeFichero("usuarios.txt");
+        ArrayList<String> lineas = ManejoArchivos.LeeFichero("scr/texts/usuarios.txt");
         for (int i = 1; i < lineas.size(); i++) {
             String[] datos = lineas.get(i).split("\\|");
             if (datos.length != 8)
@@ -108,7 +108,7 @@ public class Sistema {
         // ==========================
         // Leer organizadores.txt
         // ==========================
-        lineas = ManejoArchivos.LeeFichero("organizadores.txt");
+        lineas = ManejoArchivos.LeeFichero("scr/texts/organizadores.txt");
         for (int i = 1; i < lineas.size(); i++) {
             String[] datos = lineas.get(i).split("\\|");
             if (datos.length != 6)
@@ -125,7 +125,7 @@ public class Sistema {
         // ==========================
         // Leer aficionados.txt
         // ==========================
-        lineas = ManejoArchivos.LeeFichero("aficionados.txt");
+        lineas = ManejoArchivos.LeeFichero("scr/texts/aficionados.txt");
         for (int i = 1; i < lineas.size(); i++) {
             String[] datos = lineas.get(i).split("\\|");
             if (datos.length != 6)

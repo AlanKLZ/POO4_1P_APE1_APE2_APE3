@@ -1,12 +1,13 @@
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Sistema {
     private ArrayList<Usuario> usuarios;
     private ArrayList<Partido> partidos;
     private ArrayList<KitCompra> kitsCompra;
     private ArrayList<Compra> compras;
-    private boolean sesionIniciada;
+    public static boolean sesionIniciada;
 
     public Sistema() {
         usuarios = new ArrayList<>();
@@ -15,36 +16,55 @@ public class Sistema {
         compras = new ArrayList<>();
     }
     
-    public boolean validadInicioSesion(String usuario, String contraseña) {
+    public Usuario validadInicioSesion(String usuario, String contraseña) {
         for (Usuario u : usuarios) {
             if (u.getUsuario().equals(usuario) && u.getContraseña().equals(contraseña)) {
-                return true;
+                return u;
             }
         }
-        return false;
+        return null;
     }
 
-    public void iniciarSesion(String usuario, String contraseña) {
+    public void iniciarSesion() {
         //System.out.println("===== INICIO DE SESIÓN ===== ");
+        Scanner sc = new Scanner(System.in);
+        String usuario = sc.nextLine();
+        String contraseña = sc.nextLine();
         System.out.println("Usuario: " + usuario);
         System.out.println("Contraseña: "+"*".repeat(contraseña.length()));
-        if (validadInicioSesion(usuario, contraseña)) {
+        Usuario actual = validadInicioSesion(usuario, contraseña);
+        if (actual != null)  {
             sesionIniciada = true;
-            System.out.println("Usuario autenticado correctamente.");
-        } else {
+            System.out.println("Usuario autenticado correctamente."); 
+                       
+        } 
+        else {
             System.out.println("Usuario o contraseña incorrectos.");
         }
 
     }
     //Metodo que se usara si el usuario es un aficionado
-    public void mostrarMenu(int opcion) {  //El parametro puede variar mas tarde si sobrecargamos el metodo
+    public void mostrarMenuAficionado() {  //El parametro puede variar mas tarde si sobrecargamos el metodo
+        Scanner sc = new Scanner(System.in);
         while (sesionIniciada) {
-            //Pendiente de implementar un scanner para leer la opción del usuario
+            int opcion = 0;
+            while(true){
+            System.out.println("===== Menu de Aficionado =====");
             System.out.println("===== 1. CONSULTAR PARTIDOS =====");
             System.out.println("===== 2. COMPRAR ENTRADAS =====");
             System.out.println("===== 3. CONSULTAR KIT COMPRAS =====");
             System.out.println("===== 4. CONSULTAR ENTRADAS =====");
-            System.out.println("===== 5. SALIR =====");            
+            System.out.println("===== 5. SALIR =====");
+            System.out.print("Ingrese una opción: ");
+            opcion = sc.nextInt();
+                if (sc.hasNextInt()) {
+                    break;
+                } else {
+                    System.out.println("Opción inválida. Por favor, ingrese un número.");
+                    sc.next();
+                }
+            }
+
             switch (opcion) {
                 case 1:{
                     //lógica para consultar entradas
@@ -187,15 +207,15 @@ public class Sistema {
         for (int i = 1; i < lineas.size(); i++) {
             String[] datos = lineas.get(i).split("\\|");
             
-            if (datos.length != 6)
-            continue;
-            
+            if (datos.length != 6){
+                continue;
+            }
             ArrayList<String> codigoPartidos = new ArrayList<>();
             String[] partidos = datos[3].split(",");
             
             for (String codigo : partidos) {
-            codigoPartidos.add(codigo);
-        }
+                codigoPartidos.add(codigo);
+            }
 
         // Crear el objeto KitCompra
             KitCompra kit = new KitCompra(

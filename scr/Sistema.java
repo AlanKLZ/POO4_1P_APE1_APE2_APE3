@@ -40,9 +40,11 @@ public class Sistema {
     }
 
     public void iniciarSesion() {
-        System.out.println("===== INICIO DE SESIÓN ===== ");
+        System.out.println("===== INICIO DE SESIÓN ===== ");        
         Scanner sc = new Scanner(System.in);
+        System.out.print("Ingrese su usuario: ");
         String usuario = sc.nextLine();
+        System.out.print("Ingrese su contraseña: ");
         String contraseña = sc.nextLine();
         System.out.println("Usuario: " + usuario);
         System.out.println("Contraseña: "+"*".repeat(contraseña.length()));
@@ -106,12 +108,15 @@ public class Sistema {
             System.out.println("===== 4. CONSULTAR ENTRADAS =====");
             System.out.println("===== 5. SALIR =====");
             System.out.print("Ingrese una opción: ");
-            opcion = sc.nextInt();
-                if (sc.hasNextInt()&& opcion >= 1 && opcion <= 5) {
-                    break;
-                } else {
-                    System.out.println("Opción inválida. Por favor, ingrese un número.");
-                    sc.next();
+
+            if (sc.hasNextInt()){
+                    opcion = sc.nextInt();
+                    if(opcion >= 1 && opcion <= 5) {
+                        break;
+                    } else {
+                        System.out.println("Opción inválida. Por favor, ingrese un número.");
+                        sc.next();
+                    }
                 }
             }
 
@@ -149,15 +154,16 @@ public class Sistema {
             System.out.println("===== 2. GENERAR REPORTE =====");
             System.out.println("===== 3. SALIR =====");
             System.out.print("Ingrese una opción: ");
-            opcion = sc.nextInt();
-                if (sc.hasNextInt()&& opcion >= 1 && opcion <= 3) {
-                    break;
-                } else {
-                    System.out.println("Opción inválida. Por favor, ingrese un número.");
-                    sc.next();
+                if (sc.hasNextInt()){
+                    opcion = sc.nextInt();
+                    if (opcion >= 1 && opcion <= 3) {
+                        break;
+                    } else {
+                        System.out.println("Opción inválida. Por favor, ingrese un número.");
+                        sc.next();
+                    }
                 }
             }
-
             switch (opcion) {
                 case 1:{
                     //lógica para consultar entradas

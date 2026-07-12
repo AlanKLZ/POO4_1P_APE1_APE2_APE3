@@ -46,12 +46,45 @@ public class Sistema {
         if (actual != null)  {
             sesionIniciada = true;
             System.out.println("Usuario autenticado correctamente."); 
+            mensajeDeVerificacion(actual);
                        
         } 
         else {
             System.out.println("Usuario o contraseña incorrectos.");
         }
 
+    }
+    public void mensajeDeVerificacion(Usuario usuario){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Rol detectado: "+ usuario.getRolUsuario());
+        if (usuario instanceof Aficionado){            
+            Aficionado aficionado = (Aficionado) usuario;
+            System.out.println("Bienvenid@, "+aficionado.getNombres()+" "+aficionado.getApellidos());
+            System.out.println("Numero de celular registrado: "+ aficionado.getCelular());
+            System.out.println("\nEs este su primer inicio de sesión? (S/N)");
+            String respuesta = sc.nextLine();
+            if (respuesta.equalsIgnoreCase("S")){
+                System.out.println("Identidad confirmada.");
+            }
+            else if (respuesta.equalsIgnoreCase("N")){
+                System.out.println("Verificacion fallida.\nPor motivos de seguridad se cerrará la sesion.");
+                sesionIniciada = false;
+            }
+        }
+        else if (usuario instanceof Organizador){
+            Organizador organizador = (Organizador) usuario;
+            System.out.println("Bienvenid@, "+organizador.getNombres()+" "+organizador.getApellidos());
+            System.out.println("Empresa asignada: "+ organizador.getEmpresa());
+            System.out.println("\nEs este su primer inicio de sesión? (S/N)");
+            String respuesta = sc.nextLine();
+            if (respuesta.equalsIgnoreCase("S")){
+                System.out.println("Identidad confirmada.");
+            }
+            else if (respuesta.equalsIgnoreCase("N")){
+                System.out.println("Verificacion fallida.\nPor motivos de seguridad se cerrará la sesion.");
+                sesionIniciada = false;
+            }
+        }
     }
     //Metodo que se usara si el usuario es un aficionado
     public void mostrarMenuAficionado() {  //El parametro puede variar mas tarde si sobrecargamos el metodo

@@ -36,11 +36,13 @@ public class Sistema {
     }
     public void cerrarSesion() {
         sesionIniciada = false;
-        System.out.println("Saliendo del sistema...");
+        String mensaje = "\n Saliendo del sistema...\n";
+        System.out.println(mensaje);
     }
 
     public void iniciarSesion() {
-        System.out.println("===== INICIO DE SESIÓN ===== ");        
+        System.out.println("\nSistema de Venta y Gestión de Entradas para el Mundial\n");
+        System.out.println("=========== INICIO DE SESIÓN ========== ");        
         Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese su usuario: ");
         String usuario = sc.nextLine();
@@ -63,7 +65,7 @@ public class Sistema {
     
     public void mensajeDeVerificacion(Usuario usuario){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Rol detectado: "+ usuario.getRolUsuario());
+        System.out.println("\nRol detectado: "+ usuario.getRolUsuario()+"\n");
         if (usuario instanceof Aficionado){            
             Aficionado aficionado = (Aficionado) usuario;
             System.out.println("Bienvenid@, "+aficionado.getNombres()+" "+aficionado.getApellidos());
@@ -71,11 +73,11 @@ public class Sistema {
             System.out.println("\n¿Es numero de teléfono es correcto? (S/N)");
             String respuesta = sc.nextLine();
             if (respuesta.equalsIgnoreCase("S")){
-                System.out.println("Identidad confirmada.");
+                System.out.println("\nIdentidad confirmada.");
                 mostrarMenuAficionado();
             }
             else if (respuesta.equalsIgnoreCase("N")){
-                System.out.println("Verificacion fallida.\nPor motivos de seguridad se cerrará la sesion.");
+                System.out.println("\nVerificacion fallida.\nPor motivos de seguridad se cerrará la sesion.");
                 cerrarSesion();
             }
         }
@@ -114,9 +116,13 @@ public class Sistema {
                     if(opcion >= 1 && opcion <= 5) {
                         break;
                     } else {
-                        System.out.println("Opción inválida. Por favor, ingrese un número.");
+                        System.out.println("\nOpción inválida. Por favor, ingrese un número.\n");
                         sc.next();
                     }
+                }
+                else{
+                    System.out.println("\nError: Debe ingresar in numero.\n");
+                    sc.next();
                 }
             }
 
@@ -159,9 +165,13 @@ public class Sistema {
                     if (opcion >= 1 && opcion <= 3) {
                         break;
                     } else {
-                        System.out.println("Opción inválida. Por favor, ingrese un número.");
+                        System.out.println("\nOpción inválida. Por favor, ingrese un número.\n");
                         sc.next();
                     }
+                }
+                else{
+                    System.out.println("\nError: Debe ingresar in numero.\n");
+                    sc.next();
                 }
             }
             switch (opcion) {

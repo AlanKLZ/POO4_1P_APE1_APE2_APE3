@@ -71,6 +71,23 @@ public class Aficionado extends Usuario {
         
     }
 
+    public Compra comprar(KitCompra kit, int cantidad, String numTarjeta){        
+        if (kit.validarStock(cantidad)){
+            kit.reducirStock(cantidad);
+            double precioKit = kit.getPrecio();
+            double totalPago = precioKit*cantidad;
+            System.out.println("Total a pagar: $"+ totalPago);
+            System.out.println("Procesando pago con la tarjeta ingresada..."); 
+            System.out.println("Pago exitoso");                
+            return new Compra(TipoCompra.KIT, kit.getCodigo(),LocalDate.now(),cantidad,totalPago,this.getCodigoUnico());         
+        }
+        else {
+            System.out.println("No hay suficiente stock disponible");
+        }
+        return null;
+
+    }
+
 
     @Override
     public void consultarEntradas(ArrayList<Compra> compras) {

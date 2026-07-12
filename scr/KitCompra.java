@@ -37,12 +37,12 @@ public class KitCompra {
         return cantidadDisponible;
     }
 
-    public boolean validadStock(){
-        return cantidadDisponible > 0;
+    public boolean validarStock(int cantidad){
+        return cantidad <= cantidadDisponible;
     }
 
     public void reducirStock(int cantidad){
-        if (validadStock() && cantidad <= cantidadDisponible){
+        if (validarStock(cantidad)){
             cantidadDisponible -= cantidad;
         }else{
             System.out.println("No hay suficiente stock disponible");

@@ -50,12 +50,20 @@ public class Aficionado extends Usuario {
     }
     public Partido buscarPartido(ArrayList<Partido> partidos,String codigo){
         for (Partido p: partidos){
-            if (p.getCodigo().equals(codigo)){
+            if (p.getCodigo().equals(codigo.toUpperCase())){
                 return p;
             }
         }
         return null;
-    }   
+    }
+    public KitCompra buscarKitCompra(ArrayList<KitCompra> kits, String codigo){
+        for (KitCompra k: kits){
+            if (k.getCodigo().equals(codigo.toUpperCase())){
+                return k;
+            }
+        }
+        return null;
+    }
 
     public Compra comprar(Partido p, Zona zona, int cantidad, String numTarjeta){
         if (cantidad <=0){

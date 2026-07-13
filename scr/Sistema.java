@@ -56,7 +56,7 @@ public class Sistema {
             sesionIniciada = true;
             System.out.println("Usuario autenticado correctamente."); 
             mensajeDeVerificacion(actual);
-            selectorMenu(actual);        
+            selectorMenu(actual);                    
         } 
         else {
             System.out.println("Usuario o contraseña incorrectos.");
@@ -104,18 +104,21 @@ public class Sistema {
         }
     }
     public void selectorMenu(Usuario u){
-        if (u instanceof Aficionado){
-            mostrarMenuAficionado();
-        }
-        else if (u instanceof Organizador){
-            mostrarMenuOrganizador();
-        }
-        else {
-            System.out.println("Usuario no registrado");
+        if(sistemaActivo){
+            if (u instanceof Aficionado){
+                mostrarMenuAficionado(u);
+            }
+            else if (u instanceof Organizador){
+                mostrarMenuOrganizador(u);
+            }
+            else {
+                System.out.println("Usuario no registrado");
+            }
         }
     }
     //Metodo que se usara si el usuario es un aficionado
-    public void mostrarMenuAficionado() {  
+    public void mostrarMenuAficionado(Usuario usuario) {  
+        Aficionado aficionado = (Aficionado) usuario;
         Scanner sc = new Scanner(System.in);
         while (sesionIniciada) {
             int opcion = 0;
@@ -145,11 +148,24 @@ public class Sistema {
 
             switch (opcion) {
                 case 1:{
-                    //lógica para consultar entradas
+                    //lógica para consultar partidos
+                    aficionado.consultarPartidos(partidos);
                     break;
                 }
                 case 2:{                    
                     // lógica para comprar entradas
+                    System.out.println("Escriba los datos para proceder con el pago");
+                    System.out.print("Codigo de partido: ");
+                    String codigo = sc.nextLine();
+                    Zona zona = validarZona();
+                    System.out.print("Cantidad: ");
+                    int cantidad = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Numero de tarjetao: ");
+                    String numTarjeta = sc.nextLine();
+                    Partido p = aficionado.buscarPartido(partidos, codigo);
+                    aficionado.comprar(p, zona, cantidad, numTarjeta);
+                    
                     break;
                 }
                 case 3:{                    
@@ -166,8 +182,38 @@ public class Sistema {
             }
         }
     }
+    public Zona validarZona(){
+        Scanner sc = new Scanner(System.in);
+        int i =0;
+        while(true){
+            System.out.println("<Seleccione la zona de la compra>");
+            System.out.println("1) Zona General");
+            System.out.println("2) Zona Preferencial");
+            System.out.println("3) Zona Vip");
+            if (sc.hasNextInt()){
+                    i = sc.nextInt();
+                    sc.nextLine();
+                    if(i >= 1 && i <= 3) {
+                        break;
+                    } else {
+                        System.out.println("\nOpción inválida.\n");
+                    }
+                }
+                else{
+                    System.out.println("\nError: Debe ingresar in numero.\n");
+                    sc.nextLine();
+                }
+            switch (i){
+                case 1:return Zona.GENERAL;
+                case 2:return Zona.PREFERENCIAL;
+                case 3:return Zona.VIP;
+            }
+        }
+        return null;
+    }
     //Metodo que se usara si el usuario es un organizador
-    public void mostrarMenuOrganizador() {  
+    public void mostrarMenuOrganizador(Usuario u) {  
+        Organizador organizador = (Organizador) u;
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
         while (sesionIniciada) {            
@@ -194,10 +240,12 @@ public class Sistema {
             switch (opcion) {
                 case 1:{
                     //lógica para consultar entradas
+                    organizador.consultarEntradas(compras);
                     break;
                 }
                 case 2:{                    
                     // lógica para generar reporte
+                    organizador.generarReporte(compras);
                     break;
                 }
                 case 3:{                    

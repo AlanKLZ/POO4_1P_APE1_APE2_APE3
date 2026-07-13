@@ -106,10 +106,10 @@ public class Sistema {
     public void selectorMenu(Usuario u){
         if(sistemaActivo){
             if (u instanceof Aficionado){
-                mostrarMenuAficionado();
+                mostrarMenuAficionado(u);
             }
             else if (u instanceof Organizador){
-                mostrarMenuOrganizador();
+                mostrarMenuOrganizador(u);
             }
             else {
                 System.out.println("Usuario no registrado");
@@ -117,7 +117,8 @@ public class Sistema {
         }
     }
     //Metodo que se usara si el usuario es un aficionado
-    public void mostrarMenuAficionado() {  
+    public void mostrarMenuAficionado(Usuario usuario) {  
+        Aficionado aficionado = (Aficionado) usuario;
         Scanner sc = new Scanner(System.in);
         while (sesionIniciada) {
             int opcion = 0;
@@ -147,11 +148,24 @@ public class Sistema {
 
             switch (opcion) {
                 case 1:{
-                    //lógica para consultar entradas
+                    //lógica para consultar partidos
+                    aficionado.consultarPartidos(partidos);
                     break;
                 }
                 case 2:{                    
                     // lógica para comprar entradas
+                    System.out.println("Escriba los datos para proceder con el pago");
+                    System.out.print("Codigo de partido: ");
+                    String codigo = sc.nextLine();
+                    System.out.print("Zona del partido: ");
+                    String zona = sc.nextLine().toUpperCase();
+                    System.out.print("Cantidad: ");
+                    int cantidad = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Numero de tarjetao: ");
+                    Partido p = aficionado.buscarPartido(partidos, codigo);
+                    //aficionado.comprar(p, zona, cantidad, zona);
+                    
                     break;
                 }
                 case 3:{                    
@@ -168,8 +182,10 @@ public class Sistema {
             }
         }
     }
+
     //Metodo que se usara si el usuario es un organizador
-    public void mostrarMenuOrganizador() {  
+    public void mostrarMenuOrganizador(Usuario u) {  
+        Organizador organizador = (Organizador) u;
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
         while (sesionIniciada) {            
@@ -196,10 +212,12 @@ public class Sistema {
             switch (opcion) {
                 case 1:{
                     //lógica para consultar entradas
+                    organizador.consultarEntradas(compras);
                     break;
                 }
                 case 2:{                    
                     // lógica para generar reporte
+                    organizador.generarReporte(compras);
                     break;
                 }
                 case 3:{                    

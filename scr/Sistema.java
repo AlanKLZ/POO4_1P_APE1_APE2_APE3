@@ -164,8 +164,8 @@ public class Sistema {
                     System.out.print("Numero de tarjetao: ");
                     String numTarjeta = sc.nextLine();
                     Partido p = aficionado.buscarPartido(partidos, codigo);
-                    aficionado.comprar(p, zona, cantidad, numTarjeta);
-                    
+                    Compra compra = aficionado.comprar(p, zona, cantidad, numTarjeta);
+                    compras.add(compra);
                     break;
                 }
                 case 3:{                    

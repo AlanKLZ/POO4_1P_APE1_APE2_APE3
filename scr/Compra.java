@@ -68,7 +68,7 @@ public class Compra {
 
     @Override
     public String toString() {
-        return "° Compra:"+
+        return "\n° Detalle de la compra °"+
             "\n Código de compra    : " + codigo +
             "\n Código de referencia: " + codigoReferencia +
             "\n Tipo de compra      : " + tipoCompra +

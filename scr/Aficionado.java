@@ -49,8 +49,7 @@ public class Aficionado extends Usuario {
         }
     }
 
-    public Compra comprar(Partido p,Zona zona) {
-        Scanner sc = new Scanner(System.in);
+    public Compra comprar(Partido p,Zona zona, Scanner sc) {
 
         // Pedir una zona válida
         //Zona zona = validarZona();
@@ -105,9 +104,8 @@ public class Aficionado extends Usuario {
         return compraRealizada;
     }
 
-    public Compra comprar(KitCompra kitSeleccionado) {
+    public Compra comprar(KitCompra kitSeleccionado, Scanner sc) {
 
-        Scanner sc = new Scanner(System.in);
         //Va en sistema!!!!!!
 /*         System.out.println("===== KITS DISPONIBLES =====");
         for (KitCompra kit: kitsCompra){
@@ -181,8 +179,8 @@ public class Aficionado extends Usuario {
         
 
     //Lo muevo aqui, porque se usa unicamente aca
-    public Zona validarZona() {
-        Scanner sc = new Scanner(System.in);
+    public Zona validarZona(Scanner sc) {
+        
         int i = 0;
         while (true) {
             System.out.println("<Seleccione la zona de la compra>");

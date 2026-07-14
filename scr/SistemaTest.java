@@ -2,11 +2,12 @@ import java.util.Scanner;
 public class SistemaTest {
     public static void main(String[] args) {
         Sistema sistema = new Sistema();
-        Scanner sc = new Scanner(System.in);
         sistema.cargarUsuarios();
         sistema.cargarPartidos();
         sistema.cargarKitCompra();
+        ManejoArchivos.LimpiarArchivo("scr/texts/compras.txt");
         ManejoArchivos.EscribirArchivo("scr/texts/compras.txt", "CódigoCompra|CódigoReferencia|Tipo|FechaCompra|Cantidad|ValorPagado|CódigoAficionado");
+        try(Scanner sc = new Scanner(System.in)){
 
         while (Sistema.sistemaActivo){
             sistema.iniciarSesion(sc);
@@ -15,6 +16,8 @@ public class SistemaTest {
             //ejemplo para probar correo alazhang / POO4_1P
             //andrverd|supervisor26
         }
-        sc.close();
+        }catch(Exception exc){
+            System.out.println(exc.getMessage());
+        }
     }
 }

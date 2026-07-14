@@ -406,25 +406,21 @@ public class Sistema {
 
     //Creación de la sesión
     private Session crearSesionCorreo() {
-        if (CORREO_EMISOR.isBlank() || CLAVE_APLICACION.isBlank()){
-            throw new IllegalStateException("Error en la configuración del correo y la contraseña de aplicación");
+        Properties propiedades = new Properties();
+
+        propiedades.put("mail.smtp.auth", "true");
+        propiedades.put("mail.smtp.starttls.enable", "true");
+        propiedades.put("mail.smtp.starttls.required", "true");
+        propiedades.put("mail.smtp.host", "smtp.gmail.com");
+        propiedades.put("mail.smtp.port", "587");
+
+        return Session.getInstance(propiedades, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(CORREO_EMISOR, CLAVE_APLICACION);
+            }
+        });
         }
-
-    Properties propiedades = new Properties();
-
-    propiedades.put("mail.smtp.auth", "true");
-    propiedades.put("mail.smtp.starttls.enable", "true");
-    propiedades.put("mail.smtp.starttls.required", "true");
-    propiedades.put("mail.smtp.host", "smtp.gmail.com");
-    propiedades.put("mail.smtp.port", "587");
-
-    return Session.getInstance(propiedades, new Authenticator() {
-        @Override
-        protected PasswordAuthentication getPasswordAuthentication() {
-            return new PasswordAuthentication(CORREO_EMISOR, CLAVE_APLICACION);
-        }
-    });
-    }
     //Creación del método de envio de correo 
     private void enviarCorreo(String destinatario,String asunto,String contenido) {
         try {
@@ -436,7 +432,7 @@ public class Sistema {
             mensaje.setText(contenido, "UTF-8");
             Transport.send(mensaje);
             System.out.println("Correo enviado exitosamente"); 
-        } catch (MessagingException | IllegalStateException e) {
+        } catch (MessagingException e) {
             System.out.println("No se pudo enviar el correo: "+ e.getMessage());
         }
     }
@@ -475,4 +471,5 @@ public class Sistema {
         reporte; 
         enviarCorreo(organizador.getCorreo(), asunto, contenido);
     }
+
 }

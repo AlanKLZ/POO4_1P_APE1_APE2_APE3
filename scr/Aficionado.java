@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-import java.time.LocalDate; 
 import java.util.Scanner;
 import java.time.LocalDate;
-import java.util.ArrayList; 
+import java.util.ArrayList;
 
 public class Aficionado extends Usuario {
 
@@ -10,20 +8,19 @@ public class Aficionado extends Usuario {
     private String paisFavorito;
 
     public Aficionado(String codigoUnico,
-                      String cedula,
-                      String nombres,
-                      String apellidos,
-                      String usuario,
-                      String contraseña,
-                      String correo,
-                      String celular,
-                      String paisFavorito) {
+            String cedula,
+            String nombres,
+            String apellidos,
+            String usuario,
+            String contraseña,
+            String correo,
+            String celular,
+            String paisFavorito) {
 
-        super(codigoUnico, cedula, nombres, apellidos,usuario, contraseña, correo,RolUsuario.AFICIONADO);
+        super(codigoUnico, cedula, nombres, apellidos, usuario, contraseña, correo, RolUsuario.AFICIONADO);
         this.celular = celular;
         this.paisFavorito = paisFavorito;
     }
-
 
     public String getCelular() {
         return celular;
@@ -41,169 +38,192 @@ public class Aficionado extends Usuario {
         this.paisFavorito = paisFavorito;
     }
 
-    public void consultarPartidos(ArrayList <Partido> partidos){
-        if (partidos.isEmpty()){
-            System.out.println("No hay partidos disponibles"); 
-        }else{
-            System.out.println("Partidos Encontrados"); 
-            for (Partido p : partidos){
-                System.out.println(p); 
+    public void consultarPartidos(ArrayList<Partido> partidos) {
+        if (partidos.isEmpty()) {
+            System.out.println("No hay partidos disponibles");
+        } else {
+            System.out.println("Partidos Encontrados");
+            for (Partido p : partidos) {
+                System.out.println(p);
             }
         }
     }
 
-    public Compra comprar(Partido p){
+    public Compra comprar(Partido p) {
         Scanner sc = new Scanner(System.in);
-        Zona zona = null;
 
-    // Pedir una zona válida
-        while (zona == null) {
-        System.out.println("Seleccione la zona:");
-        System.out.println("1. GENERAL");
-        System.out.println("2. PREFERENCIAL");
-        System.out.println("3. VIP");
-        System.out.print("Ingrese una opción: ");
+        // Pedir una zona válida
+        Zona zona = validarZona();
 
-        if (sc.hasNextInt()) {
-            int opcionZona = sc.nextInt();
-            sc.nextLine();
-
-            switch (opcionZona) {
-                case 1:
-                    zona = Zona.GENERAL;
-                    break;
-                case 2:
-                    zona = Zona.PREFERENCIAL;
-                    break;
-                case 3:
-                    zona = Zona.VIP;
-                    break;
-                default:
-                    System.out.println("Opción de zona inválida.");
-            }
-        } else {
-            System.out.println("Debe ingresar un número.");
-            sc.nextLine();
-        }
-    }
-
-    int cantidad = 0;
-
-    // Pedir una cantidad válida
-    while (cantidad <= 0) {
-        System.out.print("Cantidad de entradas: ");
-
-        if (sc.hasNextInt()) {
-            cantidad = sc.nextInt();
-            sc.nextLine();
-
-            if (cantidad <= 0) {
-                System.out.println("La cantidad debe ser mayor que cero.");
-            }
-        } else {
-            System.out.println("Debe ingresar un número.");
-            sc.nextLine();
-        }
-    }
-
-    // Validar stock
-    if (!p.validarStock(zona, cantidad)) {
-        System.out.println("No hay suficiente stock en la zona seleccionada.");
-        return null;
-    }
-
-    // Pedir tarjeta
-    System.out.print("Número de tarjeta: ");
-    String numTarjeta = sc.nextLine();
-
-    double precioUnitario = p.obtenerPrecioZona(zona);
-    double totalPago = precioUnitario * cantidad;
-
-    System.out.println("Total a pagar: $" + totalPago);
-    System.out.println("Procesando pago con la tarjeta ingresada...");
-    System.out.println("Pago exitoso");
-
-    Compra compraRealizada = new Compra(
-            TipoCompra.ENTRADA,
-            p.getCodigo(),
-            LocalDate.now(),
-            cantidad,
-            totalPago,
-            this.codigoUnico
-    );
-
-    p.actualizarDisponibilidad(zona, cantidad);
-
-    return compraRealizada;
-}
-    public Compra comprar(KitCompra kit){        
-         Scanner sc = new Scanner(System.in);
         int cantidad = 0;
 
-    // Pedir una cantidad válida
+        // Pedir una cantidad válida
+        while (cantidad <= 0) {
+            System.out.print("Cantidad de entradas: ");
+
+            if (sc.hasNextInt()) {
+                cantidad = sc.nextInt();
+                sc.nextLine();
+
+                if (cantidad <= 0) {
+                    System.out.println("La cantidad debe ser mayor que cero.");
+                }
+            } else {
+                System.out.println("Debe ingresar un número.");
+                sc.nextLine();
+            }
+        }
+
+        // Validar stock
+        if (!p.validarStock(zona, cantidad)) {
+            System.out.println("No hay suficiente stock en la zona seleccionada.");
+            return null;  //Retorna vacio en caso no haya, y vuekve al ciclo en sistema.
+        }
+
+        // Pedir tarjeta
+        System.out.print("Número de tarjeta: ");
+        String numTarjeta = sc.nextLine();//Es referencial, no hay un sistema de dinero en este proyecto.
+
+        double precioUnitario = p.obtenerPrecioZona(zona);
+        double totalPago = precioUnitario * cantidad;
+
+        System.out.println("Total a pagar: $" + totalPago);
+        System.out.println("Procesando pago con la tarjeta ingresada...");
+        System.out.println("Pago exitoso");
+
+        Compra compraRealizada = new Compra(
+                TipoCompra.ENTRADA,
+                p.getCodigo(),
+                LocalDate.now(),
+                cantidad,
+                totalPago,
+                this.codigoUnico
+        );
+
+        p.actualizarDisponibilidad(zona, cantidad);
+
+        return compraRealizada;
+    }
+
+    public Compra comprar(KitCompra kit) {
+        Scanner sc = new Scanner(System.in);
+        int cantidad = 0;
+
+        // Pedir una cantidad válida
         while (cantidad <= 0) {
             System.out.print("Cantidad de kits: ");
-            
+
             if (sc.hasNextInt()) {
                 cantidad = sc.nextInt();
                 sc.nextLine();
                 if (cantidad <= 0) {
                     System.out.println("La cantidad debe ser mayor que cero.");
+                }
+            } else {
+                System.out.println("Debe ingresar un número.");
+                sc.nextLine();
             }
-        } else {
-            System.out.println("Debe ingresar un número.");
-            sc.nextLine();
         }
+
+        // Validar stock
+        if (!kit.validarStock(cantidad)) {
+            System.out.println("No hay suficiente stock disponible.");
+            return null;
+        }
+
+        // Pedir tarjeta
+        System.out.print("Número de tarjeta: ");
+        String numTarjeta = sc.nextLine(); //Nuevamente, solo es referencial.
+
+        double precioKit = kit.getPrecio();
+        double totalPago = precioKit * cantidad;
+
+        System.out.println("Total a pagar: $" + totalPago);
+        System.out.println("Procesando pago con la tarjeta ingresada...");
+        System.out.println("Pago exitoso");
+
+        kit.reducirStock(cantidad);
+
+        return new Compra(
+                TipoCompra.KIT,
+                kit.getCodigo(),
+                LocalDate.now(),
+                cantidad,
+                totalPago,
+                this.getCodigoUnico()
+        );
     }
 
-    // Validar stock
-    if (!kit.validarStock(cantidad)) {
-        System.out.println("No hay suficiente stock disponible.");
+    //Lo muevo aqui, porque se usa unicamente aca
+    public Zona validarZona() {
+        Scanner sc = new Scanner(System.in);
+        int i = 0;
+        while (true) {
+            System.out.println("<Seleccione la zona de la compra>");
+            System.out.println("1) Zona General");
+            System.out.println("2) Zona Preferencial");
+            System.out.println("3) Zona Vip");
+            if (sc.hasNextInt()) {
+                i = sc.nextInt();
+                sc.nextLine();
+                if (i >= 1 && i <= 3) {
+                    break;
+                } else {
+                    System.out.println("\nOpción inválida.\n");
+                }
+            } else {
+                System.out.println("\nError: Debe ingresar in numero.\n");
+                sc.nextLine();
+            }
+            switch (i) {
+                case 1:
+                    return Zona.GENERAL;
+                case 2:
+                    return Zona.PREFERENCIAL;
+                case 3:
+                    return Zona.VIP;
+            }
+        }
         return null;
     }
 
-    // Pedir tarjeta
-    System.out.print("Número de tarjeta: ");
-    String numTarjeta = sc.nextLine();
+    //Lo borré sin querer
+    public Partido buscarPartido(ArrayList<Partido> partidos, String codigo) {
+        for (Partido p : partidos) {
+            if (p.getCodigo().equals(codigo.toUpperCase())) {
+                return p;
+            }
+        }
+        return null;
+    }
 
-    double precioKit = kit.getPrecio();
-    double totalPago = precioKit * cantidad;
-
-    System.out.println("Total a pagar: $" + totalPago);
-    System.out.println("Procesando pago con la tarjeta ingresada...");
-    System.out.println("Pago exitoso");
-
-    kit.reducirStock(cantidad);
-
-    return new Compra(
-            TipoCompra.KIT,
-            kit.getCodigo(),
-            LocalDate.now(),
-            cantidad,
-            totalPago,
-            this.getCodigoUnico()
-    );
-}
-
+    public KitCompra buscarKitCompra(ArrayList<KitCompra> kits, String codigo) {
+        for (KitCompra k : kits) {
+            if (k.getCodigo().equals(codigo.toUpperCase())) {
+                return k;
+            }
+        }
+        return null;
+    }
 
     @Override
     public void consultarEntradas(ArrayList<Compra> compras) {
-        boolean encontroCompra= false; 
+        boolean encontroCompra = false;
         for (Compra compra : compras) {
-            if (compra.getCodigoAficionado().equals(this.codigoUnico)){
-                System.out.println(compra); 
-                encontroCompra= true; 
-            }      
+            if (compra.getCodigoAficionado().equals(this.codigoUnico)) {
+                System.out.println(compra);
+                encontroCompra = true;
+            }
         }
-        if (!encontroCompra){
-            System.out.println("No tiene compras registradas"); 
+        if (!encontroCompra) {
+            System.out.println("No tiene compras registradas");
         }
     }
 
     @Override
     public String toString() {
-        return super.toString() + 
-                "\nCelular: " + celular +
-                "\nPais Favorito: " + paisFavorito; 
+        return super.toString()
+                + "\nCelular: " + celular
+                + "\nPais Favorito: " + paisFavorito;
     }
 }

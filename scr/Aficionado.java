@@ -64,7 +64,7 @@ public class Aficionado extends Usuario {
         }
         return null;
     }
-
+    //Editar el parametro que recibe solo partido, el resto de parametros que se lo pida el metodo con un scanner.
     public Compra comprar(Partido p, Zona zona, int cantidad, String numTarjeta){
         if (cantidad <=0){
             System.out.println("La cantidad debe ser mayor que cero");
@@ -86,7 +86,7 @@ public class Aficionado extends Usuario {
         return compraRealizada; 
         
     }
-
+    //Lo mismo que arriba, editar este metodo tmb
     public Compra comprar(KitCompra kit, int cantidad, String numTarjeta){        
         if (kit.validarStock(cantidad)){
             kit.reducirStock(cantidad);

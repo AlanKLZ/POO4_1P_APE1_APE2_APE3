@@ -153,29 +153,31 @@ public class Sistema {
                     break;
                 }
                 case 2:{                    
-                    // lógica para comprar entradas
-                    System.out.println("Escriba los datos para proceder con el pago: ");
-                    System.out.print("Codigo de partido: ");
-                    String codigo = sc.nextLine();
-                    Zona zona = validarZona();
-                    System.out.print("Cantidad: ");
-                    int cantidad = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Numero de tarjeta: ");
-                    String numTarjeta = sc.nextLine();
-                    Partido p = aficionado.buscarPartido(partidos, codigo);
-                    Compra compra = aficionado.comprar(p, zona, cantidad, numTarjeta);
-                    if (compra != null){
-                        compras.add(compra);
+                    // Lógica para comprar entradas
+                    System.out.println("Escriba los datos para proceder con el pago:");
+                    Partido p = null;
+                    while (p == null) {
+                        System.out.print("Código de partido: ");
+                        String codigo = sc.nextLine();
+                        p = aficionado.buscarPartido(partidos, codigo);
+                        if (p == null) {
+                            System.out.println("Ingrese un código de partido válido.");
+                        }
                     }
+/*                     Compra compra = aficionado.comprar(p);  Descomentar luego que cambien el metodo comprar en lo de aficionado pls
+                    if (compra != null) {
+                        compras.add(compra);
+                    } */
                     break;
                 }
                 case 3:{                    
                     // lógica para consultar kitcompras
+                    consultarKits(aficionado);
                     break;
                 }
                 case 4:{                    
                     // lógica para consultar entradas
+                    aficionado.consultarEntradas(compras);
                     break;
                 }
                 case 5:{                    
@@ -213,6 +215,19 @@ public class Sistema {
             }
         }
         return null;
+    }
+/*     Por como está el toString() va a imprimir los datos y luego
+    la info de los enfrentamientos, si quieren lo cambian.Como está cumple su proposito */
+    public void consultarKits(Aficionado a){
+        for (KitCompra k : kitsCompra){
+            k.toString();
+            System.out.println("Prtidos incluidos:");
+            for (String co: k.getCodigoPartidos()){
+                Partido p = a.buscarPartido(partidos,co);
+                System.out.println("- "+p.getSeleccionLocal()+" vs "+p.getSeleccionVisitante());
+            }
+        }
+
     }
     //Metodo que se usara si el usuario es un organizador
     public void mostrarMenuOrganizador(Usuario u) {  

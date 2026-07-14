@@ -42,9 +42,9 @@ public class Sistema {
         System.out.println(mensaje);
     }
 
+
+        //Metodo iniciarSesion
     public void iniciarSesion(Scanner sc) {
-//Metodo iniciarSesion
-    public void iniciarSesion() {
         System.out.println("\nSistema de Venta y Gestión de Entradas para el Mundial\n");
         System.out.println("=========== INICIO DE SESIÓN ========== ");        
         System.out.print("Ingrese su usuario: ");
@@ -66,10 +66,9 @@ public class Sistema {
 
     }
     
+    
+       //Metodo de mensajeDeVerificación 
     public void mensajeDeVerificacion(Usuario usuario, Scanner sc){
-//Metodo de mensajeDeVerificación 
-    public void mensajeDeVerificacion(Usuario usuario){
-        Scanner sc = new Scanner(System.in);
         String cierreSistema = "Saliendo del sistema...";
         System.out.println("\nRol detectado: "+ usuario.getRolUsuario()+"\n");
 
@@ -109,9 +108,9 @@ public class Sistema {
             }
         }
     }
-    public void selectorMenu(Usuario u, Scanner sc){
+    
     //Metodo selectorMenu
-    public void selectorMenu(Usuario u){
+    public void selectorMenu(Usuario u, Scanner sc ){
         if(sistemaActivo){
             if (u instanceof Aficionado){
                 mostrarMenuAficionado(u, sc);
@@ -243,10 +242,9 @@ public class Sistema {
         }
     }
 
-    //Metodo que se usara si el usuario es un organizador
-    public void mostrarMenuOrganizador(Usuario u, Scanner sc) {  
+      
     //Metodo para mostrar menu si el usuario es un organizador
-    public void mostrarMenuOrganizador(Usuario u) {  
+    public void mostrarMenuOrganizador(Usuario u, Scanner sc) {  
         Organizador organizador = (Organizador) u;
         int opcion = 0;
         while (sesionIniciada) {            

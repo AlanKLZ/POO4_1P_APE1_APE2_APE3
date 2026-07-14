@@ -170,10 +170,12 @@ public class Sistema {
                 }
                 case 3:{                    
                     // lógica para consultar kitcompras
+                    
                     break;
                 }
                 case 4:{                    
                     // lógica para consultar entradas
+                    aficionado.consultarEntradas(compras);
                     break;
                 }
                 case 5:{                    
@@ -211,6 +213,17 @@ public class Sistema {
             }
         }
         return null;
+    }
+    public void consultarKits(Aficionado a){
+        for (KitCompra k : kitsCompra){
+            k.toString();
+            System.out.println("Prtidos incluidos:");
+            for (String co: k.getCodigoPartidos()){
+                Partido p = a.buscarPartido(partidos,co);
+                System.out.println("- "+p.getSeleccionLocal()+" vs "+p.getSeleccionVisitante());
+            }
+        }
+
     }
     //Metodo que se usara si el usuario es un organizador
     public void mostrarMenuOrganizador(Usuario u) {  

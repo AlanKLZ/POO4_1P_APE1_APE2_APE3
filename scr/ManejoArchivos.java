@@ -72,6 +72,14 @@ public class ManejoArchivos {
             }
         }
     }
+    public static void LimpiarArchivo(String nombreArchivo) {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(nombreArchivo))) {
+        // No escribir nada.
+        // Al abrir el FileWriter sin append, el archivo queda vacío.
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 
 }
 

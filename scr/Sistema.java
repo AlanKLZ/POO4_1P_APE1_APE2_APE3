@@ -164,15 +164,15 @@ public class Sistema {
                             System.out.println("Ingrese un código de partido válido.");
                         }
                     }
-                    Compra compra = aficionado.comprar(p);
+/*                     Compra compra = aficionado.comprar(p);  Descomentar luego que cambien el metodo comprar en lo de aficionado pls
                     if (compra != null) {
                         compras.add(compra);
-                    }
+                    } */
                     break;
                 }
                 case 3:{                    
                     // lógica para consultar kitcompras
-                    
+                    consultarKits(aficionado);
                     break;
                 }
                 case 4:{                    

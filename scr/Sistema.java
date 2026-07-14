@@ -41,10 +41,9 @@ public class Sistema {
         System.out.println(mensaje);
     }
 
-    public void iniciarSesion() {
+    public void iniciarSesion(Scanner sc) {
         System.out.println("\nSistema de Venta y Gestión de Entradas para el Mundial\n");
         System.out.println("=========== INICIO DE SESIÓN ========== ");        
-        Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese su usuario: ");
         String usuario = sc.nextLine();
         System.out.print("Ingrese su contraseña: ");
@@ -55,8 +54,8 @@ public class Sistema {
         if (actual != null)  {
             sesionIniciada = true;
             System.out.println("Usuario autenticado correctamente."); 
-            mensajeDeVerificacion(actual);
-            selectorMenu(actual);                    
+            mensajeDeVerificacion(actual, sc);
+            selectorMenu(actual, sc);                    
         } 
         else {
             System.out.println("Usuario o contraseña incorrectos.");
@@ -64,8 +63,7 @@ public class Sistema {
 
     }
     
-    public void mensajeDeVerificacion(Usuario usuario){
-        Scanner sc = new Scanner(System.in);
+    public void mensajeDeVerificacion(Usuario usuario, Scanner sc){
         String cierreSistema = "Saliendo del sistema...";
         System.out.println("\nRol detectado: "+ usuario.getRolUsuario()+"\n");
 
@@ -103,13 +101,13 @@ public class Sistema {
             }
         }
     }
-    public void selectorMenu(Usuario u){
+    public void selectorMenu(Usuario u, Scanner sc){
         if(sistemaActivo){
             if (u instanceof Aficionado){
-                mostrarMenuAficionado(u);
+                mostrarMenuAficionado(u, sc);
             }
             else if (u instanceof Organizador){
-                mostrarMenuOrganizador(u);
+                mostrarMenuOrganizador(u, sc);
             }
             else {
                 System.out.println("Usuario no registrado");
@@ -117,9 +115,9 @@ public class Sistema {
         }
     }
     //Metodo que se usara si el usuario es un aficionado
-    public void mostrarMenuAficionado(Usuario usuario) {  
+    public void mostrarMenuAficionado(Usuario usuario, Scanner sc) {  
         Aficionado aficionado = (Aficionado) usuario;
-        Scanner sc = new Scanner(System.in);
+        
         while (sesionIniciada) {
             int opcion = 0;
             while(true){
@@ -155,7 +153,7 @@ public class Sistema {
                 case 2:{                    
                     // Lógica para comprar entradas
                     System.out.println("Escriba los datos para proceder con el pago:");
-                    Zona zona = aficionado.validarZona();
+                    Zona zona = aficionado.validarZona(sc);
                     Partido p = null;
                     boolean regresar = false;
                     while (p == null) {
@@ -174,7 +172,7 @@ public class Sistema {
                     if (regresar){
                         break;
                     }
-                    Compra compra = aficionado.comprar(p,zona);
+                    Compra compra = aficionado.comprar(p,zona,sc);
                     if (compra != null) {
                         compras.add(compra);
                         String linea = compra.getCodigo() + "|" + compra.getCodigoReferencia() + "|" + compra.getTipoCompra() + "|" + compra.getFechaCompra() + "|" + compra.getCantidad() + "|" + compra.getValorPagado() + "|" + compra.getCodigoAficionado();
@@ -196,7 +194,7 @@ public class Sistema {
                             System.out.println("Ingrese un código de kit válido");
                         }
                     }
-                    Compra compra = aficionado.comprar(kitSeleccionado);
+                    Compra compra = aficionado.comprar(kitSeleccionado, sc);
                     if(compra != null){
                         compras.add(compra);
                         String linea = compra.getCodigo() + "|" + compra.getCodigoReferencia() + "|" + compra.getTipoCompra() + "|" + compra.getFechaCompra() + "|" + compra.getCantidad() + "|" + compra.getValorPagado() + "|" + compra.getCodigoAficionado();
@@ -234,9 +232,8 @@ public class Sistema {
     }
 
     //Metodo que se usara si el usuario es un organizador
-    public void mostrarMenuOrganizador(Usuario u) {  
+    public void mostrarMenuOrganizador(Usuario u, Scanner sc) {  
         Organizador organizador = (Organizador) u;
-        Scanner sc = new Scanner(System.in);
         int opcion = 0;
         while (sesionIniciada) {            
             while(true){

@@ -113,10 +113,12 @@ public class Sistema {
     public void selectorMenu(Usuario u, Scanner sc ){
         if(sistemaActivo){
             if (u instanceof Aficionado){
-                mostrarMenuAficionado(u, sc);
+                Aficionado af = (Aficionado) u;
+                mostrarMenu(af, sc);
             }
             else if (u instanceof Organizador){
-                mostrarMenuOrganizador(u, sc);
+                Organizador org = (Organizador) u;
+                mostrarMenu(org, sc);
             }
             else {
                 System.out.println("Usuario no registrado");
@@ -124,9 +126,7 @@ public class Sistema {
         }
     }
     //Metodo que se usara si el usuario es un aficionado
-    public void mostrarMenuAficionado(Usuario usuario, Scanner sc) {  
-        Aficionado aficionado = (Aficionado) usuario;
-        
+    public void mostrarMenu(Aficionado aficionado, Scanner sc) {  
         while (sesionIniciada) {
             int opcion = 0;
             while(true){
@@ -249,8 +249,7 @@ public class Sistema {
 
       
     //Metodo para mostrar menu si el usuario es un organizador
-    public void mostrarMenuOrganizador(Usuario u, Scanner sc) {  
-        Organizador organizador = (Organizador) u;
+    public void mostrarMenu(Organizador organizador, Scanner sc) {  
         int opcion = 0;
         while (sesionIniciada) {            
             while(true){

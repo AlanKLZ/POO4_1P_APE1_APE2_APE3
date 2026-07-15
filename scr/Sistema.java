@@ -228,17 +228,22 @@ public class Sistema {
     }
     //Metodo para poder visualizar los Kits disponibles
     public void mostrarKitsDisponibles(ArrayList<KitCompra> kits, ArrayList<Partido> partidos , Aficionado a){
-        System.out.println("===== KITS DISPONIBLES =====");
+        System.out.println("\n===== KITS DISPONIBLES =====\n");
         for (KitCompra kit: kitsCompra){
+            System.out.println("-------------------------------------");
             System.out.println(kit);
             System.out.println("Disponibles: "+ kit.getCantidadDisponible()); 
-            System.out.println("Partidos incluidos: "); 
+            
+            System.out.println("Partidos incluidos:"); 
             for(String codigoPartido: kit.getCodigoPartidos()){
                 Partido partido= a.buscarPartido(partidos, codigoPartido); 
                 if(partido != null){
-                    System.out.println(partido.getSeleccionLocal() + " vs "+ partido.getSeleccionVisitante()); 
+                    System.out.println("• " + partido.getSeleccionLocal() + " vs "+ partido.getSeleccionVisitante()); 
+                    
                 }
             }
+            System.out.println("-------------------------------------\n");
+
         }
     }
 
